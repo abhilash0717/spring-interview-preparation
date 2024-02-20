@@ -1,15 +1,21 @@
 package com.example.Spring.interviewPreparation.controller;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.Spring.interviewPreparation.entity.StudentEntity;
+import com.example.Spring.interviewPreparation.exceptions.ErrorResponse;
+import com.example.Spring.interviewPreparation.exceptions.StudentNotFoundException;
 import com.example.Spring.interviewPreparation.model.Student;
 import com.example.Spring.interviewPreparation.service.StudentService;
 
@@ -35,4 +41,23 @@ public class StudentController {
 
 	 return savedStudentEntity;
 	}
+	 
+	 @GetMapping("/allStudents")
+	 public List<Student> GetAllStudents() {
+	 
+	 // Save the entity using the service
+	 List<Student> savedStudent = studentService.getAllStudents();
+
+	 return savedStudent;
+	}
+	 
+	 @GetMapping("/{id}")
+	 public ResponseEntity<Object> getStudent(@PathVariable("id") int id) throws StudentNotFoundException {
+	     // Your service logic
+	     // If StudentNotFoundException occurs, it will be handled by the global exception handler
+	     Student student = studentService.getStudent(id);
+	     return ResponseEntity.ok(student);
+	 }
+
+
 }
