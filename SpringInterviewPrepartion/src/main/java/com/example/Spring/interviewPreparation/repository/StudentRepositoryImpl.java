@@ -62,5 +62,28 @@ public class StudentRepositoryImpl implements StudentRepository{
 	        throw new StudentNotFoundException("Student with ID " + id + " not found");
 	    }
 	}
+	
+	@Transactional
+	@Override
+	public String updateStudent(StudentEntity studentEntity) throws StudentNotFoundException {
+		Student SearchedStudent = getStudent(studentEntity.getId());
+		
+		if (SearchedStudent != null) {
+			
+			StudentEntity currEntity = new StudentEntity();
+			currEntity.setEmail(studentEntity.getEmail());
+			currEntity.setFirstName(studentEntity.getFirstName());
+			currEntity.setLastName(studentEntity.getLastName());
+			currEntity.setPhoneNumber(studentEntity.getPhoneNumber());
+			
+			entityManager.persist(currEntity);
+	    } else {
+	        // Handle the case where the student is not found
+	        // For example, throw a custom exception, return a default student, or log the issue
+	        throw new StudentNotFoundException("Student with ID " + SearchedStudent.getId() + " not found");
+	    }
+		
+		return "Student Saved Successfully!";
+	}
 
 }

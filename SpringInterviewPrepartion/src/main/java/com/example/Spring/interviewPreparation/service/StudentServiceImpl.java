@@ -35,4 +35,10 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepository.getStudent(id);
 	}
 
+	@Override
+	public String updateStudent(StudentEntity studentEntity) throws StudentNotFoundException {
+		
+		return studentRepository.updateStudent(studentEntity);
+	}
+
 }

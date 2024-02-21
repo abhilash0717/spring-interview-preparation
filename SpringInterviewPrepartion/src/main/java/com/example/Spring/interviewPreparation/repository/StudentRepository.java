@@ -10,4 +10,5 @@ public interface StudentRepository {
 	public String saveStudent(StudentEntity student);
 	public List<Student> getAllStudents();
 	public Student getStudent(int id) throws StudentNotFoundException;
+	public String updateStudent(StudentEntity studentEntity) throws StudentNotFoundException;
 }
